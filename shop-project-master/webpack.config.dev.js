@@ -6,5 +6,6 @@ module.exports = merge.smart(webpackBase, {
 
   devServer: {
     port: 9000,
+    historyApiFallback: true,
   },
 });
