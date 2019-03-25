@@ -1,0 +1,55 @@
+.Box--card {
+  width: 30%;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+  overflow: hidden;
+  border-radius: 5px 5px 0 0;
+  border: 1px solid #e1e1e1;
+  margin: 10px;
+  box-sizing: border-box;
+
+  img {
+    display: block;
+    width: 100%;
+  }
+
+  .Box--card-content {
+    padding: 10px;
+  }
+  p {
+    color: grey;
+    font-size: 22px;
+  }
+  .Box--buttons {
+    display: flex;
+    justify-content: space-between;
+    input {
+      text-align: right;
+      font-size: 22px;
+      font-weight: 700;
+      font-family: 'Roboto', sans-serif;
+      -webkit-appearance: none;
+      box-sizing: border-box;
+      border: none;
+      background: transparent;
+      max-width: 120px;
+    }
+    input[type='number']::-webkit-inner-spin-button {
+      opacity: 1;
+      margin-left: 20px;
+    }
+    button {
+      background: none;
+      border: none;
+      svg {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+      }
+    }
+    button:focus {
+      outline: none;
+    }
+  }
+}
