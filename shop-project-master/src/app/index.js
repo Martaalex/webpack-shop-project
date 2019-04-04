@@ -10,10 +10,21 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
-import { Shop, Favorites, Cart, PageNotFound, Login } from './pages';
+// import Loadable from 'react-loadable';
+
+import Shop from './pages/Shop';
+import Favorites from './pages/Favorites';
+import PageNotFound from './pages/PageNotFound';
+import Login from './pages/Login';
 import { PageLayout, PrivateRoute } from './components';
 import auth from '../auth';
 import shop from '../shop';
+
+const LazyCart = React.lazy(() => import('./pages/Cart'));
+// const LoadableLogin = Loadable({
+//   loader: () => import('./pages/Login'),
+//   loading: <div>Loading...</div>,
+// });
 
 class App extends React.Component {
   constructor(props) {
@@ -72,21 +83,23 @@ class App extends React.Component {
     const { loading, error } = this.props;
 
     return (
-      <Router>
-        <PageLayout navLinks={this.renderNav()}>
-          {error && <span>{error}</span>}
-          {loading && <MoonLoader />}
-          <Switch>
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/shop" component={Shop} />
-            <PrivateRoute exact path="/favorites" component={Favorites} />
-            <Route exact path="/cart" component={Cart} />
-            <Route path="/404" component={PageNotFound} />
-            <Redirect exact from="/" to="/shop" />
-            <Redirect to="/404" />
-          </Switch>
-        </PageLayout>
-      </Router>
+      <React.Suspense fallback={<div>Loading...</div>}>
+        <Router>
+          <PageLayout navLinks={this.renderNav()}>
+            {error && <span>{error}</span>}
+            {loading && <MoonLoader />}
+            <Switch>
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/shop" component={Shop} />
+              <PrivateRoute exact path="/favorites" component={Favorites} />
+              <Route exact path="/cart" component={LazyCart} />
+              <Route path="/404" component={PageNotFound} />
+              <Redirect exact from="/" to="/shop" />
+              <Redirect to="/404" />
+            </Switch>
+          </PageLayout>
+        </Router>
+      </React.Suspense>
     );
   }
 }

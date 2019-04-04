@@ -6,6 +6,7 @@ const webpackBase = require('./webpack.config.base.js');
 module.exports = merge.smart(webpackBase, {
   output: {
     filename: 'index.bundle.js',
+    chunkFilename: '[name].bundle.js',
     path: path.resolve(__dirname, 'build'),
   },
   mode: 'production',
